@@ -5,6 +5,7 @@ PARSER=src/erlydtl/erlydtl_parser
 APP=erlydtl.app
 
 all: $(PARSER).erl ebin/$(APP)
+	-mkdir ebin
 	$(ERL) -make 
 
 ebin/$(APP): src/erlydtl/$(APP)
