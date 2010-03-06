@@ -39,13 +39,19 @@
 -export([fix_ampersands/1, force_escape/1, format_integer/1, format_number/1]).
 -export([join/2, last/1, length/1, length_is/2, linebreaksbr/1, ljust/2]).
 -export([lower/1, rjust/2, upper/1, urlencode/1]).
--export([base64/1]).
+-export([base64/1, as_term/1, element/2]).
 
 -define(NO_ENCODE(C), ((C >= $a andalso C =< $z) orelse
         (C >= $A andalso C =< $Z) orelse
         (C >= $0 andalso C =< $9) orelse
         (C =:= $\. orelse C =:= $- 
         orelse C =:= $~ orelse C =:= $_))).
+
+as_term([Input]) -> io_lib:format("~p",[Input]);
+as_term(Input) -> io_lib:format("~p",[Input]).
+
+element([Input],Pos) -> ?MODULE:element(Input,Pos);
+element(Input,Pos) -> erlang:element(Pos,Input).
 
 %% @doc Adds a number to the value.
 add([Input], Number) when is_list(Input) or is_binary(Input) ->
